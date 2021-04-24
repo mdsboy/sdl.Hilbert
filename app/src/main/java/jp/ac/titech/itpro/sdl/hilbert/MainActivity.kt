@@ -13,8 +13,15 @@ class MainActivity : AppCompatActivity() {
     private lateinit var decButton: Button
     private lateinit var incButton: Button
 
+    private val KEY_ORDER = "MainActivity.order"
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
+        if (savedInstanceState != null) {
+            order = savedInstanceState.getInt(KEY_ORDER)
+        }
+
         setContentView(R.layout.activity_main)
         orderView = findViewById(R.id.order_view)
         hilbertView = findViewById(R.id.hilbert_view)
@@ -35,6 +42,11 @@ class MainActivity : AppCompatActivity() {
     override fun onResume() {
         super.onResume()
         display()
+    }
+
+    override fun onSaveInstanceState(outState: Bundle) {
+        super.onSaveInstanceState(outState)
+        outState.putInt(KEY_ORDER, order)
     }
 
     private fun display() {
